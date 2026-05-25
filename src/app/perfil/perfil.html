@@ -1,0 +1,100 @@
+<div class="sm-perfil sm-page-enter">
+  <div class="container">
+    <div class="sm-perfil__head">
+      <h1 class="sm-page-title">Tu <span class="red">perfil</span></h1>
+      <p>Consulta tus datos, ajusta tu cuenta y configura cómo quieres que te avisemos.</p>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav sm-perfil-tabs" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab() === 'info'" (click)="setTab('info')">Perfil</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab() === 'config'" (click)="setTab('config')">Configuración</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab() === 'notif'" (click)="setTab('notif')">Notificaciones</button>
+      </li>
+    </ul>
+
+    <!-- TAB: Perfil -->
+    @if (activeTab() === 'info') {
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="sm-card sm-profile">
+            <div class="sm-profile__avatar"><i class="bi bi-person-fill"></i></div>
+            <h2 class="sm-profile__name">{{ auth.user()?.name }}</h2>
+            <div class="sm-profile__handle">{{ auth.user()?.email }}</div>
+            <div class="sm-profile__chip-row mt-3">
+              <span class="sm-chip"><i class="bi bi-arrow-left-right"></i><span>{{ goalLabel() }}</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="sm-card" style="padding:28px 32px;">
+            <h3 style="font-family:var(--f-head);font-weight:500;font-size:20px;letter-spacing:0.3px;margin:0 0 6px;">Datos personales</h3>
+            <p class="sm-muted" style="font-size:14px;margin:0 0 18px;">Información proporcionada al registrar tu cuenta.</p>
+            <div class="sm-info-grid">
+              <div class="sm-info-row"><span class="sm-info-row__label">Nombre de usuario</span><span class="sm-info-row__val">{{ auth.user()?.handle }}</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Correo</span><span class="sm-info-row__val">{{ auth.user()?.email }}</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Género</span><span class="sm-info-row__val">{{ auth.user()?.gender }}</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Edad</span><span class="sm-info-row__val">{{ auth.user()?.age }} años</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Peso</span><span class="sm-info-row__val">{{ auth.user()?.weight }} kg</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Altura</span><span class="sm-info-row__val">{{ auth.user()?.height }} cm</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Nivel de actividad</span><span class="sm-info-row__val">{{ auth.user()?.activity }}</span></div>
+              <div class="sm-info-row"><span class="sm-info-row__label">Objetivo</span><span class="sm-info-row__val">{{ goalLabel() }}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- TAB: Configuración -->
+    @if (activeTab() === 'config') {
+      <div class="sm-card" style="padding:28px 32px;max-width:760px;">
+        <h3 style="font-family:var(--f-head);font-weight:500;font-size:20px;letter-spacing:0.3px;margin:0 0 6px;">Configuración de la cuenta</h3>
+        <p class="sm-muted" style="font-size:14px;margin:0 0 8px;">Ajustes generales de tu cuenta Strong Muscle.</p>
+        <div class="sm-settings-list mt-3">
+          <div class="setting-row">
+            <div><h4>Cambiar contraseña</h4><p>Actualiza tu contraseña periódicamente para mantener tu cuenta segura.</p></div>
+            <button class="btn btn-ghost btn-sm">Cambiar</button>
+          </div>
+          <div class="setting-row">
+            <div><h4>Idioma</h4><p>Define el idioma en el que verás la interfaz.</p></div>
+            <select class="sm-select" style="width:180px;"><option>Español</option><option>English</option></select>
+          </div>
+          <div class="setting-row">
+            <div><h4>Unidades</h4><p>Sistema métrico (kg, cm) o imperial (lb, in).</p></div>
+            <select class="sm-select" style="width:180px;"><option>Métrico (kg / cm)</option><option>Imperial (lb / in)</option></select>
+          </div>
+          <div class="setting-row">
+            <div><h4>Eliminar cuenta</h4><p>Esta acción es permanente y no puede revertirse.</p></div>
+            <button class="btn btn-ghost btn-sm" style="color:var(--error);border-color:rgba(239,68,68,0.4);">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- TAB: Notificaciones -->
+    @if (activeTab() === 'notif') {
+      <div class="sm-card" style="padding:28px 32px;max-width:760px;">
+        <h3 style="font-family:var(--f-head);font-weight:500;font-size:20px;letter-spacing:0.3px;margin:0 0 6px;">Notificaciones</h3>
+        <p class="sm-muted" style="font-size:14px;margin:0 0 8px;">Decide cuándo y cómo queremos avisarte.</p>
+        <div class="mt-3">
+          @for (n of notifications; track n.id) {
+            <div class="sm-toggle-row">
+              <div class="sm-toggle-row__main">
+                <h4>{{ n.title }}</h4>
+                <p>{{ n.desc }}</p>
+              </div>
+              <div class="form-check form-switch m-0">
+                <input class="form-check-input sm-switch" type="checkbox" [id]="n.id" [(ngModel)]="n.enabled" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

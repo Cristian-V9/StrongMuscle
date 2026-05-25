@@ -1,0 +1,86 @@
+<div class="sm-dash sm-page-enter">
+  <div class="container">
+    <div class="sm-dash__head">
+      <div>
+        <h1 class="sm-page-title">Mi <span class="red">Actividad</span></h1>
+        <p>Cada cuadro es un día. Cada día cuenta. Cada serie suma.</p>
+      </div>
+      <div class="sm-chip"><i class="bi bi-calendar-check"></i><span>Mejor racha · {{ stats().best }} días</span></div>
+    </div>
+
+    <div class="row g-4">
+      <!-- PERFIL -->
+      <div class="col-lg-4">
+        <div class="sm-card sm-profile">
+          <div class="sm-profile__avatar"><i class="bi bi-person-fill"></i></div>
+          <h2 class="sm-profile__name">{{ auth.user()?.name }}</h2>
+          <div class="sm-profile__handle">{{ auth.user()?.handle }}</div>
+          <div class="sm-profile__chip-row">
+            <span class="sm-chip"><i class="bi bi-arrow-left-right"></i><span>{{ goalLabel() }}</span></span>
+          </div>
+          <div class="sm-profile__stats">
+            <div class="sm-profile__stat"><span class="sm-profile__stat-label">Género</span><span class="sm-profile__stat-val">{{ auth.user()?.gender }}</span></div>
+            <div class="sm-profile__stat"><span class="sm-profile__stat-label">Peso</span><span class="sm-profile__stat-val">{{ auth.user()?.weight }} kg</span></div>
+            <div class="sm-profile__stat"><span class="sm-profile__stat-label">Altura</span><span class="sm-profile__stat-val">{{ auth.user()?.height }} cm</span></div>
+            <div class="sm-profile__stat"><span class="sm-profile__stat-label">Edad</span><span class="sm-profile__stat-val">{{ auth.user()?.age }} años</span></div>
+            <div class="sm-profile__stat"><span class="sm-profile__stat-label">Actividad</span><span class="sm-profile__stat-val">{{ auth.user()?.activity }}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEATMAP -->
+      <div class="col-lg-8">
+        <div class="sm-card sm-heat">
+          <div class="sm-heat__head">
+            <div>
+              <h2 class="sm-heat__title">Mi Actividad — {{ monthLabel() }}</h2>
+              <p class="sm-heat__subtitle">Minutos por día · Lun a Dom</p>
+            </div>
+            <div class="sm-month-nav">
+              <button (click)="prevMonth()" aria-label="Mes anterior"><i class="bi bi-chevron-left"></i></button>
+              <span class="label">{{ monthShort() }}</span>
+              <button (click)="nextMonth()" aria-label="Mes siguiente"><i class="bi bi-chevron-right"></i></button>
+            </div>
+          </div>
+
+          <div class="sm-heat__summary">
+            <div class="sm-heat__sum sm-heat__sum--accent"><b>{{ stats().active }}</b><span>Días activos</span></div>
+            <div class="sm-heat__sum"><b>{{ stats().hours }}h</b><span>Volumen total</span></div>
+            <div class="sm-heat__sum"><b>{{ stats().best }}</b><span>Mejor racha</span></div>
+          </div>
+
+          <div class="sm-heat__weekdays">
+            <div class="sm-heat__wd">Lun</div><div class="sm-heat__wd">Mar</div>
+            <div class="sm-heat__wd">Mié</div><div class="sm-heat__wd">Jue</div>
+            <div class="sm-heat__wd">Vie</div><div class="sm-heat__wd">Sáb</div>
+            <div class="sm-heat__wd">Dom</div>
+          </div>
+          <div class="sm-heat__weeks">
+            @for (week of weeks(); track $index) {
+              <div class="sm-heat__week">
+                @for (cell of week; track $index) {
+                  <div class="sm-cell">
+                    <div class="sm-cell__inner sm-cell__inner--{{ cell.level }}"
+                         [title]="cellTitle(cell.day, cell.minutes)">{{ cell.day }}</div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="sm-legend">
+            @for (item of scale; track item.level) {
+              <div class="sm-legend__item">
+                <div class="sm-legend__sw {{ item.cssClass }}"></div>
+                <div>
+                  <div class="sm-legend__label">{{ item.label }}</div>
+                  <div class="sm-legend__time">{{ item.minutes }}</div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="sm-locked sm-page-enter">
+  <div class="container">
+    <div class="sm-locked__head">
+      <span class="sm-eyebrow">Rutinas</span>
+      <h1>Tu plan semanal, <span class="red">listo para entrenar</span>.</h1>
+      <p>Rutinas organizadas por día con ejercicios, series y repeticiones. Desde Push Day hasta Lower Posterior — todo estructurado para que solo tengas que entrenar.</p>
+      <div class="sm-locked__cta">
+        <button class="btn btn-primary-red btn-lg" routerLink="/registro">Crear cuenta</button>
+        <button class="btn btn-ghost btn-lg" routerLink="/login">Iniciar sesión</button>
+      </div>
+    </div>
+
+    <div class="sm-locked__demo">
+      <div class="sm-locked__demo--blur">
+        <ul class="nav sm-tabs" role="tablist">
+          @for (day of week; track day.id) {
+            <li class="nav-item">
+              <button class="nav-link" [class.active]="day.id === 'lun'">
+                {{ day.label }}<span class="sub">{{ day.type }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+        <div class="sm-ex-grid">
+          @for (ex of demoDay.exercises; track ex.code) {
+            <div class="sm-exercise">
+              <div class="sm-exercise__img" [attr.data-label]="ex.illust">
+                <div class="sm-exercise__num">{{ ex.code }}</div>
+                <img [src]="imgSrc(ex.illust)" [alt]="ex.name" (error)="onImgError($event)" />
+              </div>
+              <div class="sm-exercise__body">
+                <div class="sm-exercise__name">{{ ex.name }}</div>
+                <div class="sm-exercise__muscles">{{ ex.muscles }}</div>
+                <div class="sm-exercise__sets"><span>Series × Reps</span><b>{{ ex.sets }}</b></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="sm-locked__lock-overlay">
+        <div class="sm-locked__lock-card">
+          <div class="lock-ico"><i class="bi bi-lock"></i></div>
+          <h3>Inicia sesión para ver tus rutinas</h3>
+          <p>Tu plan semanal te espera al otro lado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

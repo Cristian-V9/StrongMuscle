@@ -1,0 +1,62 @@
+<div class="sm-train sm-page-enter">
+  <div class="container">
+    <div class="sm-train__head">
+      <div>
+        <h1 class="sm-page-title">Tus <span class="red">rutinas</span></h1>
+        <p>Plan semanal de seis días + descanso. Selecciona un día para ver los ejercicios.</p>
+      </div>
+      <div class="sm-train__meta">
+        <div><b>6</b><span>días/sem</span></div>
+        <div><b>36</b><span>ejercicios</span></div>
+        <div><b>60-90</b><span>min/sesión</span></div>
+      </div>
+    </div>
+
+    <!-- Tabs por día -->
+    <ul class="nav sm-tabs" role="tablist">
+      @for (day of week; track day.id) {
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" [class.active]="activeId() === day.id"
+                  type="button" role="tab" (click)="select(day.id)">
+            {{ day.label }}<span class="sub">{{ day.type }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+
+    <!-- Contenido del día activo -->
+    @if (activeDay.rest) {
+      <div class="sm-rest">
+        <i class="bi bi-moon-stars"></i>
+        <h3>Día de descanso</h3>
+        <p>El descanso es parte del entrenamiento. Hidrátate, duerme bien y recupérate para volver más fuerte el lunes.</p>
+      </div>
+    } @else {
+      <div class="sm-day-head">
+        <h2>{{ activeDay.day }} — <em>{{ activeDay.type }}</em></h2>
+        <div class="sm-day-head__meta">
+          <div>Foco: <b>{{ activeDay.focus }}</b></div>
+          <div><b>{{ activeDay.exercises.length }}</b> ejercicios</div>
+        </div>
+      </div>
+
+      <div class="sm-ex-grid">
+        @for (ex of activeDay.exercises; track ex.code) {
+          <div class="sm-exercise">
+            <div class="sm-exercise__img" [attr.data-label]="ex.illust">
+              <div class="sm-exercise__num">{{ ex.code }}</div>
+              <img [src]="imgSrc(ex.illust)" [alt]="ex.name" (error)="onImgError($event)" />
+            </div>
+            <div class="sm-exercise__body">
+              <div class="sm-exercise__name">{{ ex.name }}</div>
+              <div class="sm-exercise__muscles">{{ ex.muscles }}</div>
+              <div class="sm-exercise__sets">
+                <span>Series × Reps</span><b>{{ ex.sets }}</b>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

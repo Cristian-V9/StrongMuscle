@@ -1,0 +1,91 @@
+<div class="sm-auth sm-page-enter">
+  <form class="sm-auth-card sm-auth-card--wide" (ngSubmit)="submit()" novalidate>
+    <h1 class="sm-auth-card__title">Crear cuenta</h1>
+    <p class="sm-auth-card__sub">Únete y empieza a entrenar con propósito.</p>
+    <div class="sm-auth-card__divider"></div>
+
+    <div class="row g-3">
+      <div class="col-12">
+        <label class="sm-label" for="suUser">Nombre de usuario</label>
+        <input type="text" id="suUser" name="suUser" class="sm-input"
+               [class.is-invalid]="errors()['username']"
+               placeholder="Ej. ironjohn_23"
+               [(ngModel)]="username" (input)="clearError('username')" />
+        @if (errors()['username']) {
+          <div class="sm-feedback-error"><i class="bi bi-exclamation-circle"></i><span>Elige un nombre de usuario</span></div>
+        }
+      </div>
+
+      <div class="col-12">
+        <label class="sm-label" for="suEmail">Correo electrónico</label>
+        <input type="email" id="suEmail" name="suEmail" class="sm-input"
+               [class.is-invalid]="errors()['email']"
+               placeholder="tucorreo@ejemplo.com"
+               [(ngModel)]="email" (input)="clearError('email')" />
+        @if (errors()['email']) {
+          <div class="sm-feedback-error"><i class="bi bi-exclamation-circle"></i><span>Correo no válido</span></div>
+        }
+      </div>
+
+      <div class="col-md-6">
+        <label class="sm-label" for="suPwd">Contraseña</label>
+        <div class="sm-input-wrap">
+          <input [type]="showPwd() ? 'text' : 'password'" id="suPwd" name="suPwd" class="sm-input"
+                 [class.is-invalid]="errors()['password']"
+                 placeholder="Mínimo 8 caracteres"
+                 [(ngModel)]="password" (input)="clearError('password')" />
+          <button type="button" class="sm-input-icon" (click)="showPwd.set(!showPwd())"
+                  [attr.aria-label]="showPwd() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+            <i class="bi" [class.bi-eye]="!showPwd()" [class.bi-eye-slash]="showPwd()"></i>
+          </button>
+        </div>
+        @if (errors()['password']) {
+          <div class="sm-feedback-error"><i class="bi bi-exclamation-circle"></i><span>Mínimo 8 caracteres</span></div>
+        }
+      </div>
+
+      <div class="col-md-6">
+        <label class="sm-label" for="suPwd2">Confirmar contraseña</label>
+        <div class="sm-input-wrap">
+          <input [type]="showPwd2() ? 'text' : 'password'" id="suPwd2" name="suPwd2" class="sm-input"
+                 [class.is-invalid]="errors()['confirm']"
+                 placeholder="Repite tu contraseña"
+                 [(ngModel)]="confirm" (input)="checkConfirm()" />
+          <button type="button" class="sm-input-icon" (click)="showPwd2.set(!showPwd2())"
+                  [attr.aria-label]="showPwd2() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+            <i class="bi" [class.bi-eye]="!showPwd2()" [class.bi-eye-slash]="showPwd2()"></i>
+          </button>
+        </div>
+        @if (errors()['confirm']) {
+          <div class="sm-feedback-error"><i class="bi bi-exclamation-circle"></i><span>Las contraseñas no coinciden</span></div>
+        }
+      </div>
+    </div>
+
+    <div class="mt-4 mb-2">
+      <label class="sm-label">¿Cuál es tu objetivo?</label>
+    </div>
+    <div class="sm-goals">
+      @for (g of goals; track g.id) {
+        <button type="button" class="sm-goal" [class.is-active]="goal() === g.id"
+                (click)="selectGoal(g.id)">
+          <span class="sm-goal__icon"><i class="bi" [ngClass]="g.icon"></i></span>
+          <span class="sm-goal__text">
+            <span class="sm-goal__title">{{ g.title }}</span>
+            <span class="sm-goal__desc">{{ g.desc }}</span>
+          </span>
+          <span class="sm-goal__radio"></span>
+        </button>
+      }
+    </div>
+    @if (errors()['goal']) {
+      <div class="sm-feedback-error"><i class="bi bi-exclamation-circle"></i><span>Elige un objetivo</span></div>
+    }
+
+    <button type="submit" class="btn btn-primary-red w-100 mt-3">Crear cuenta</button>
+
+    <p class="sm-auth-foot">
+      ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
+    </p>
+  </form>
+</div>

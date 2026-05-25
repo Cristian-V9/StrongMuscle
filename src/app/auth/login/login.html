@@ -1,0 +1,88 @@
+<div class="sm-auth sm-page-enter">
+  <form class="sm-auth-card" (ngSubmit)="submit()" #f="ngForm" novalidate>
+    <h1 class="sm-auth-card__title">Iniciar sesión</h1>
+    <p class="sm-auth-card__sub">Bienvenido de vuelta. La barra te espera.</p>
+    <div class="sm-auth-card__divider"></div>
+
+    <div class="mb-3">
+      <label class="sm-label" for="loginEmail">Correo electrónico</label>
+      <input type="email" id="loginEmail" name="loginEmail" class="sm-input"
+             [class.is-invalid]="emailError()"
+             placeholder="tucorreo@ejemplo.com" autocomplete="email"
+             [(ngModel)]="email" (input)="onEmailInput()" />
+      @if (emailError()) {
+        <div class="sm-feedback-error">
+          <i class="bi bi-exclamation-circle"></i><span>Correo no válido</span>
+        </div>
+      }
+    </div>
+
+    <div class="mb-2">
+      <label class="sm-label" for="loginPwd">Contraseña</label>
+      <div class="sm-input-wrap">
+        <input [type]="showPwd() ? 'text' : 'password'" id="loginPwd" name="loginPwd"
+               class="sm-input" placeholder="Tu contraseña" autocomplete="current-password"
+               [(ngModel)]="password" />
+        <button type="button" class="sm-input-icon" (click)="showPwd.set(!showPwd())"
+                [attr.aria-label]="showPwd() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+          <i class="bi" [class.bi-eye]="!showPwd()" [class.bi-eye-slash]="showPwd()"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="sm-forgot-row">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#forgotModal">
+        ¿Olvidaste tu contraseña?
+      </button>
+    </div>
+
+    <button type="submit" class="btn btn-primary-red w-100" [disabled]="loading()">
+      <span>{{ loading() ? 'Iniciando sesión...' : 'Iniciar sesión' }}</span>
+      @if (loading()) {
+        <span class="spinner-border spinner-border-sm ms-2" role="status"></span>
+      }
+    </button>
+
+    <p class="sm-auth-foot">
+      ¿No tienes cuenta? <a routerLink="/registro">Crea una aquí</a>
+    </p>
+  </form>
+</div>
+
+<!-- MODAL — Olvidaste tu contraseña -->
+<div class="modal fade sm-modal" id="forgotModal" tabindex="-1"
+     aria-labelledby="forgotTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgotTitle">Recuperar contraseña</h5>
+        <button type="button" class="btn-close-x" data-bs-dismiss="modal"
+                aria-label="Cerrar" (click)="resetForgot()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <form (ngSubmit)="submitForgot()">
+        <div class="modal-body">
+          <p class="sm-muted mb-3" style="font-size:14px;">
+            Ingresa tu correo y te enviaremos un enlace de recuperación.
+          </p>
+          <label class="sm-label" for="forgotEmail">Correo electrónico</label>
+          <input type="email" id="forgotEmail" name="forgotEmail" class="sm-input"
+                 [class.is-invalid]="forgotInvalid()"
+                 placeholder="tucorreo@ejemplo.com" [(ngModel)]="forgotEmail" />
+          @if (forgotSent()) {
+            <div class="sm-success">
+              <i class="bi bi-check-circle"></i>
+              <span>Correo enviado. Revisa tu bandeja de entrada.</span>
+            </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-accent w-100" [disabled]="forgotSent()">
+            {{ forgotSent() ? 'Enlace enviado' : 'Enviar enlace' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

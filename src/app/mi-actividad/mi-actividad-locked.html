@@ -1,0 +1,59 @@
+<div class="sm-locked sm-page-enter">
+  <div class="container">
+    <div class="sm-locked__head">
+      <span class="sm-eyebrow">Mi Actividad</span>
+      <h1>Visualiza tu <span class="red">constancia</span>, día a día.</h1>
+      <p>Cada entrenamiento se convierte en un cuadro de color. Ve tu mes completo de un vistazo y descubre cuánto entrenaste, en qué intensidad y dónde está tu mejor racha.</p>
+      <div class="sm-locked__cta">
+        <button class="btn btn-primary-red btn-lg" routerLink="/registro">Crear cuenta</button>
+        <button class="btn btn-ghost btn-lg" routerLink="/login">Iniciar sesión</button>
+      </div>
+    </div>
+
+    <div class="sm-locked__demo">
+      <div class="sm-card sm-heat">
+        <div class="sm-heat__head">
+          <div>
+            <h2 class="sm-heat__title">Vista previa · Abril 2026</h2>
+            <p class="sm-heat__subtitle">La intensidad cambia día a día — esto es lo que verás cuando empieces a registrar.</p>
+          </div>
+          <div class="sm-month-nav">
+            <button disabled><i class="bi bi-chevron-left"></i></button>
+            <span class="label">Abril 2026</span>
+            <button disabled><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <div class="sm-heat__weekdays mt-3">
+          <div class="sm-heat__wd">Lun</div><div class="sm-heat__wd">Mar</div>
+          <div class="sm-heat__wd">Mié</div><div class="sm-heat__wd">Jue</div>
+          <div class="sm-heat__wd">Vie</div><div class="sm-heat__wd">Sáb</div>
+          <div class="sm-heat__wd">Dom</div>
+        </div>
+        <div class="sm-heat__weeks demo-anim">
+          @for (week of weeks(); track $index) {
+            <div class="sm-heat__week">
+              @for (cell of week; track $index) {
+                <div class="sm-cell">
+                  <div class="sm-cell__inner sm-cell__inner--{{ cell.level }}">{{ cell.day }}</div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="sm-legend">
+          @for (item of scale; track item.level) {
+            <div class="sm-legend__item">
+              <div class="sm-legend__sw {{ item.cssClass }}"></div>
+              <div>
+                <div class="sm-legend__label">{{ item.label }}</div>
+                <div class="sm-legend__time">{{ item.minutes }}</div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
