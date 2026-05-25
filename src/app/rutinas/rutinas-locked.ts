@@ -7,10 +7,10 @@ import { TrainingService } from '../services/training.service';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './rutinas-locked.html',
+  styleUrl: './rutinas-locked.css',
 })
 export class RutinasLockedComponent {
   private training = inject(TrainingService);
-  // Muestra el día Lunes como demo difuminada
   readonly demoDay = this.training.week[0];
   readonly week = this.training.week;
 

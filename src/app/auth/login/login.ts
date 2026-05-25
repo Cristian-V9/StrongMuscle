@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
+  styleUrl: './login.css',
 })
 export class LoginComponent {
   private router = inject(Router);
@@ -20,7 +21,6 @@ export class LoginComponent {
   loading = signal(false);
   loginError = signal('');
 
-  // Modal "olvidé contraseña"
   forgotEmail = '';
   forgotSent = signal(false);
   forgotInvalid = signal(false);

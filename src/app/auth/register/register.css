@@ -1,0 +1,159 @@
+/*
+  register.css — RegisterComponent
+
+  Pantalla de creación de cuenta. Incluye el fondo centrado, la card
+  del formulario, el pie con el link a login y el selector de objetivo
+  donde el usuario elige entre déficit, superávit o recomposición.
+*/
+
+
+/* ---- Fondo y centrado ---- */
+
+.sm-auth {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  place-items: center;
+  padding: 56px 20px;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Manchón rojo difuso arriba — da algo de profundidad sin distraer */
+.sm-auth::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse at center, rgba(185,28,28,0.10), transparent 65%);
+  pointer-events: none;
+}
+
+
+/* ---- Card del formulario ---- */
+
+.sm-auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 40px 40px 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,0.6);
+}
+
+/* Register es un poco más ancho por los campos extra */
+.sm-auth-card--wide { max-width: 520px; }
+
+.sm-auth-card__title {
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+}
+
+.sm-auth-card__sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.sm-auth-card__divider {
+  height: 1px;
+  background: var(--border-soft);
+  margin: 4px 0 22px;
+}
+
+
+/* ---- Pie del formulario ---- */
+
+.sm-auth-foot {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.sm-auth-foot a { color: var(--accent); cursor: pointer; }
+
+
+/* ---- Selector de objetivo ---- */
+
+.sm-goals { display: grid; gap: 10px; margin-bottom: 18px; }
+
+.sm-goal {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  color: var(--text-primary);
+  transition: border-color .15s, background .15s;
+}
+
+.sm-goal:hover { border-color: var(--border-hover); }
+
+.sm-goal.is-active {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}
+
+.sm-goal__icon {
+  width: 40px; height: 40px;
+  border-radius: var(--r-sm);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+
+.sm-goal__icon i { font-size: 20px; }
+
+.sm-goal.is-active .sm-goal__icon {
+  background: rgba(34,211,238,0.12);
+  border-color: rgba(34,211,238,0.4);
+  color: var(--accent);
+}
+
+.sm-goal__text { display: flex; flex-direction: column; gap: 2px; }
+
+.sm-goal__title {
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+.sm-goal__desc { font-size: 13px; color: var(--text-muted); }
+
+/* Circulito de radio a la derecha de cada opción */
+.sm-goal__radio {
+  margin-left: auto;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--text-dim);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sm-goal.is-active .sm-goal__radio { border-color: var(--accent); }
+
+.sm-goal.is-active .sm-goal__radio::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -14,6 +14,7 @@ interface NotifSetting {
   standalone: true,
   imports: [FormsModule],
   templateUrl: './perfil.html',
+  styleUrl: './perfil.css',
 })
 export class PerfilComponent {
   protected auth = inject(AuthService);

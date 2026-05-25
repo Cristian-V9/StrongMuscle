@@ -1,0 +1,23 @@
+/*
+  footer.css — FooterComponent
+ 
+  Pie de página con el logo, el crédito del proyecto y los nombres
+  del equipo. Simple y sin mucho ruido — aparece igual en todas
+  las pantallas.
+*/
+ 
+ 
+.sm-footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-soft);
+  padding: 36px 24px 32px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.8;
+}
+ 
+.sm-footer img { height: 44px; margin-bottom: 16px; opacity: 0.95; }
+.sm-footer .names { color: var(--text-muted); }
+.sm-footer .copy { margin-bottom: 4px; }
+ 

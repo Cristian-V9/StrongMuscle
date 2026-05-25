@@ -8,6 +8,7 @@ import { HeatCell } from '../models/heatmap.model';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './mi-actividad-locked.html',
+  styleUrl: './mi-actividad-locked.css',
 })
 export class MiActividadLockedComponent implements OnInit, OnDestroy {
   private training = inject(TrainingService);
@@ -19,9 +20,7 @@ export class MiActividadLockedComponent implements OnInit, OnDestroy {
   private readonly levels: HeatCell['level'][] = ['low', 'mod', 'rec', 'high', 'crit', 'mod', 'rec', 'low'];
 
   ngOnInit(): void {
-    // Demo: Abril 2026, animada
     this.weeks.set(this.training.buildWeeks(2026, 3));
-    // Rebaraja niveles cada 2.2s para que la demo "respire"
     this.timer = setInterval(() => this.shuffle(), 2200);
   }
 

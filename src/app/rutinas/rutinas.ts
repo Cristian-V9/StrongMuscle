@@ -6,6 +6,7 @@ import { DayRoutine } from '../models/exercise.model';
   selector: 'app-rutinas',
   standalone: true,
   templateUrl: './rutinas.html',
+  styleUrl: './rutinas.css',
 })
 export class RutinasComponent {
   private training = inject(TrainingService);

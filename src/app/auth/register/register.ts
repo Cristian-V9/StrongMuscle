@@ -17,6 +17,7 @@ interface GoalOption {
   standalone: true,
   imports: [FormsModule, RouterLink, NgClass],
   templateUrl: './register.html',
+  styleUrl: './register.css',
 })
 export class RegisterComponent {
   private router = inject(Router);

@@ -21,7 +21,7 @@ export class TrainingService {
     { level: 'crit',  cssClass: 'sm-cell__inner--crit',  label: 'Crítica',       minutes: '> 120 min' },
   ];
 
-  /** Plan semanal completo. Mock data por ahora — luego vendrá de la DB. */
+   /** Plan semanal completo. Mock data por ahora — luego vendrá de la DB. */
   readonly week: DayRoutine[] = [
     {
       id: 'lun', day: 'Lunes', label: 'Lun', type: 'Push Day', focus: 'Pecho · Hombro · Tríceps',
@@ -31,14 +31,14 @@ export class TrainingService {
         { code: 'A3', name: 'Press militar',        muscles: 'Hombro, Tríceps',         sets: '4 × 8',     illust: 'press' },
         { code: 'B1', name: 'Elevación lateral',    muscles: 'Hombros',                 sets: '3 × 12-15', illust: 'lateral' },
         { code: 'B2', name: 'Extensión de tríceps', muscles: 'Tríceps',                 sets: '3 × 12',    illust: 'tricep' },
-        { code: 'B3', name: 'Press francés',        muscles: 'Tríceps, Hombros',        sets: '3 × 10',    illust: 'tricep' },
+        { code: 'B3', name: 'Triceps polea alta',   muscles: 'Tríceps, Hombros',        sets: '3 × 10',    illust: 'tricep2' },
       ],
     },
     {
       id: 'mar', day: 'Martes', label: 'Mar', type: 'Pull Day', focus: 'Espalda · Bíceps',
       exercises: [
         { code: 'A1', name: 'Jalón neutro',    muscles: 'Dorsales, Bíceps',        sets: '4 × 10', illust: 'pulldown' },
-        { code: 'A2', name: 'Jalón abierto',   muscles: 'Dorsales, Bíceps',        sets: '4 × 10', illust: 'pulldown' },
+        { code: 'A2', name: 'Jalón abierto',   muscles: 'Dorsales, Bíceps',        sets: '4 × 10', illust: 'pulldown2' },
         { code: 'A3', name: 'Remo abierto',    muscles: 'Espalda alta, Antebrazo', sets: '4 × 12', illust: 'row' },
         { code: 'B1', name: 'Pull over',       muscles: 'Dorsales',                sets: '3 × 12', illust: 'pullover' },
         { code: 'B2', name: 'Curl predicador', muscles: 'Bíceps, Antebrazo',       sets: '3 × 10', illust: 'preacher' },
@@ -49,7 +49,7 @@ export class TrainingService {
       id: 'mie', day: 'Miércoles', label: 'Mié', type: 'Leg Day', focus: 'Cuádriceps · Glúteo',
       exercises: [
         { code: 'A1', name: 'Hack squat',     muscles: 'Cuádriceps, Glúteo',  sets: '4 × 8-10', illust: 'squat' },
-        { code: 'A2', name: 'Prensa',         muscles: 'Cuádriceps, Glúteo',  sets: '4 × 12',   illust: 'press' },
+        { code: 'A2', name: 'Prensa',         muscles: 'Cuádriceps, Glúteo',  sets: '4 × 12',   illust: 'press2' },
         { code: 'A3', name: 'Extensiones',    muscles: 'Cuádriceps',          sets: '3 × 15',   illust: 'extension' },
         { code: 'B1', name: 'Aducción',       muscles: 'Aductores',           sets: '3 × 15',   illust: 'adduction' },
         { code: 'B2', name: 'Gemelos parado', muscles: 'Gemelos',             sets: '4 × 15',   illust: 'calf' },
@@ -60,37 +60,30 @@ export class TrainingService {
       id: 'jue', day: 'Jueves', label: 'Jue', type: 'Upper Push', focus: 'Pecho · Hombro',
       exercises: [
         { code: 'A1', name: 'Press plano',              muscles: 'Pecho, Tríceps',      sets: '4 × 6-8', illust: 'bench' },
-        { code: 'A2', name: 'Press inclinado mancuerna', muscles: 'Pecho superior',     sets: '3 × 10',  illust: 'bench' },
-        { code: 'A3', name: 'Fondos asistidos',         muscles: 'Pecho, Tríceps',      sets: '3 × 10',  illust: 'dips' },
-        { code: 'B1', name: 'Press Arnold',             muscles: 'Hombros',             sets: '3 × 10',  illust: 'shoulder-press' },
-        { code: 'B2', name: 'Pájaros',                  muscles: 'Deltoide posterior',  sets: '3 × 15',  illust: 'rear-delt' },
-        { code: 'B3', name: 'Fondos en banco',          muscles: 'Tríceps',             sets: '3 × 12',  illust: 'tricep' },
+         { code: 'A2', name: 'Aperturas de pecho',   muscles: 'Pecho, Deltoide anterior', sets: '3 × 12',    illust: 'pec-deck' },
+        { code: 'A1', name: 'Jalón neutro',    muscles: 'Dorsales, Bíceps',        sets: '4 × 10', illust: 'pulldown' },
+        { code: 'A3', name: 'Remo abierto',    muscles: 'Espalda alta, Antebrazo', sets: '4 × 12', illust: 'row' },
+        { code: 'B1', name: 'Elevación lateral',    muscles: 'Hombros',                 sets: '3 × 12-15', illust: 'lateral' },
+        { code: 'A3', name: 'Press militar',        muscles: 'Hombro, Tríceps',         sets: '4 × 8',     illust: 'press' },
       ],
     },
     {
       id: 'vie', day: 'Viernes', label: 'Vie', type: 'Pull Power', focus: 'Espalda · Bíceps',
       exercises: [
-        { code: 'A1', name: 'Peso muerto',    muscles: 'Espalda, Glúteo, Isquios', sets: '5 × 5',   illust: 'deadlift' },
-        { code: 'A2', name: 'Dominadas',      muscles: 'Dorsales, Bíceps',         sets: '4 × max', illust: 'pullup' },
-        { code: 'A3', name: 'Remo con barra', muscles: 'Espalda media',            sets: '4 × 8',   illust: 'row' },
-        { code: 'B1', name: 'Face pull',      muscles: 'Deltoide post., Trapecio', sets: '3 × 15',  illust: 'face-pull' },
-        { code: 'B2', name: 'Curl martillo',  muscles: 'Bíceps, Braquial',         sets: '3 × 12',  illust: 'curl' },
-        { code: 'B3', name: 'Curl en polea',  muscles: 'Bíceps',                   sets: '3 × 15',  illust: 'curl' },
+       { code: 'A1', name: 'Hack squat',     muscles: 'Cuádriceps, Glúteo',  sets: '4 × 8-10', illust: 'squat' },
+        { code: 'A2', name: 'Prensa',         muscles: 'Cuádriceps, Glúteo',  sets: '4 × 12',   illust: 'press2' },
+        { code: 'A3', name: 'Extensiones',    muscles: 'Cuádriceps',          sets: '3 × 15',   illust: 'extension' },
+        { code: 'B1', name: 'Aducción',       muscles: 'Aductores',           sets: '3 × 15',   illust: 'adduction' },
+        { code: 'B2', name: 'Gemelos parado', muscles: 'Gemelos',             sets: '4 × 15',   illust: 'calf' },
+        { code: 'B3', name: 'Hip thrust',     muscles: 'Glúteos, Cuádriceps', sets: '4 × 10',   illust: 'thrust' },
       ],
     },
     {
-      id: 'sab', day: 'Sábado', label: 'Sáb', type: 'Lower Posterior', focus: 'Isquios · Glúteo',
-      exercises: [
-        { code: 'A1', name: 'Peso muerto rumano', muscles: 'Isquios, Glúteo',    sets: '4 × 8',   illust: 'deadlift' },
-        { code: 'A2', name: 'Sentadilla búlgara', muscles: 'Cuádriceps, Glúteo', sets: '3 × 10',  illust: 'lunge' },
-        { code: 'A3', name: 'Curl femoral',       muscles: 'Isquios',            sets: '4 × 12',  illust: 'leg-curl' },
-        { code: 'B1', name: 'Patada de glúteo',   muscles: 'Glúteo',             sets: '3 × 15',  illust: 'glute' },
-        { code: 'B2', name: 'Abducción',          muscles: 'Glúteo medio',       sets: '3 × 15',  illust: 'abduction' },
-        { code: 'B3', name: 'Plancha',            muscles: 'Core',               sets: '3 × 60s', illust: 'plank' },
-      ],
+      id: 'sab', day: 'Sábado', label: 'Sáb', type: 'Descanso', focus: '',rest: true, exercises: [],
     },
     { id: 'dom', day: 'Domingo', label: 'Dom', type: 'Descanso', focus: '', rest: true, exercises: [] },
   ];
+
 
   /** Actividad pseudo-aleatoria determinista por fecha (mock). */
   activityFor(y: number, m: number, d: number): number {

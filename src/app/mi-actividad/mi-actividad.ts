@@ -7,12 +7,12 @@ import { BaseTraining } from '../models/base-training';
   selector: 'app-mi-actividad',
   standalone: true,
   templateUrl: './mi-actividad.html',
+  styleUrl: './mi-actividad.css',
 })
 export class MiActividadComponent extends BaseTraining {
   protected auth = inject(AuthService);
   protected training = inject(TrainingService);
 
-  // Mes mostrado (Abril 2026 por defecto)
   private year = signal(2026);
   private month = signal(3);
 
